@@ -87,7 +87,7 @@ services:
 
     kayue_wordpress.blog_util:
         class: %kayue_wordpress.blog_util.class%
-        arguments: ['@kayue_wordpress.helper.attachment', "%wp_bridge.wp_upload_url%", "%wp_bridge.static_url%"]
+        arguments: ['@kayue_wordpress.helper.attachment', "%kayue_wordpress.wp_upload_url%", "%kayue_wordpress.static_url%"]
 
     kayue_wordpress.posts:
         class: %kayue_wordpress.posts.class%
