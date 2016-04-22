@@ -10,6 +10,9 @@ parameters:
     kayue_wordpress.security.logout.handler.cookie_clearing.class: Kayue\WordpressBundle\Security\Http\Logout\WordpressCookieClearingLogoutHandler
     kayue_wordpress.security.cookie.service.class: Kayue\WordpressBundle\Security\Http\WordpressCookieService
     kayue_wordpress.security.encoder.phpass.class: Kayue\WordpressBundle\Security\Encoder\PhpassPasswordEncoder
+    kayue_wordpress.blog_util.class: Kayue\WordpressBundle\Helper\BlogutilHelper
+    kayue_wordpress.posts.class: Kayue\WordpressBundle\Controller\PostController
+    kayue_wordpress.snippets.class: Kayue\WordpressBundle\Controller\SnippetsController
 
 services:
     kayue_wordpress:
@@ -81,3 +84,12 @@ services:
             - '@kayue_wordpress.helper.attachment'
         tags:
             - { name: twig.extension }
+
+    kayue_wordpress.blog_util:
+        class: %kayue_wordpress.blog_util.class%
+        arguments: ['@kayue_wordpress.helper.attachment', "%wp_bridge.wp_upload_url%", "%wp_bridge.static_url%"]
+
+    kayue_wordpress.posts:
+        class: %kayue_wordpress.posts.class%
+        calls:
+          - [setContainer, ["@service_container"]]

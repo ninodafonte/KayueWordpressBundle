@@ -28,6 +28,8 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('cookie_domain')->defaultValue(null)->end()
             ->scalarNode('table_prefix')->defaultValue('wp_')->end()
             ->scalarNode('connection')->defaultValue('default')->end()
+            ->scalarNode('wp_upload_url')->end()
+            ->scalarNode('static_url')->end()
         ->end();
 
         return $treeBuilder;
