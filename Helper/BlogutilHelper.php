@@ -50,12 +50,7 @@ class BlogutilHelper
             $temp['excerpt']        = $post->getExcerpt();
             $temp['comments']       = $this->getValidComments($post);
             $temp['tags']           = $this->getTags($post);
-
-            // Images:
-            $metaInfo  = $this->attachmentHelper->findThumbnail($post)->getMetas();
-            $imageName = isset($metaInfo[0]) ? $metaInfo[0]->getValue() : self::DEFAULT_IMAGE;
-
-            $temp['featured_image'] = $this->staticUrl . '/' . $imageName;
+            $temp['item']           = $post;
 
             $preparePosts[] = $temp;
         }
