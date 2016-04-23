@@ -8,6 +8,7 @@ use Doctrine\ORM\Event\LoadClassMetadataEventArgs;
 use Doctrine\Common\Annotations\Reader;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Kayue\WordpressBundle\Annotation\WordpressTable;
+use Doctrine\Common\Persistence\Mapping\RuntimeReflectionService;
 
 class TablePrefixSubscriber implements EventSubscriber
 {
@@ -33,6 +34,8 @@ class TablePrefixSubscriber implements EventSubscriber
     public function loadClassMetadata(LoadClassMetadataEventArgs $args)
     {
         $classMetadata = $args->getClassMetadata();
+        $rrs = new RuntimeReflectionService();
+        $classMetadata->wakeupReflection($rrs);
 
         // Get class annotations
         $classAnnotations = $this->annotatonReader->getClassAnnotations($classMetadata->getReflectionClass());
