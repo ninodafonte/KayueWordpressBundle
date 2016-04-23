@@ -19,7 +19,7 @@ class PostController extends Controller
     public function getLastPosts($limit = 5)
     {
         // Get the last posts:
-        $repo  = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $repo  = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         $posts = $repo->findBy(
             array(
                 'type'   => 'post',
@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function getPostBySlug(Request $request, $slug)
     {
-        $repo = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $repo = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         /** @var Post $wpPost */
         $wpPost = $repo->findOneBy(
             array(
@@ -67,7 +67,7 @@ class PostController extends Controller
     public function getPostsByTag($tag_name)
     {
         /** @var PostRepository $em */
-        $em    = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $em    = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         $posts = $em->findAllByTag($tag_name);
 
         if (count($posts) == 0) {
@@ -88,7 +88,7 @@ class PostController extends Controller
     public function getPostsByAuthor($author)
     {
         /** @var PostRepository $em */
-        $em    = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $em    = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         $posts = $em->findAllByAuthor($author);
 
         if (count($posts) == 0) {
@@ -107,7 +107,7 @@ class PostController extends Controller
     public function getAllPosts()
     {
         // Get the last posts:
-        $repo  = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $repo  = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         $posts = $repo->findBy(
             array(
                 'type'   => 'post',
@@ -129,7 +129,7 @@ class PostController extends Controller
     public function getPopularTags($limit = 10)
     {
         /** @var EntityManager $em */
-        $em = $this->getDoctrine()->getRepository('KayueWordpressBundle:Term');
+        $em = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Term');
         $query = $em->createQueryBuilder('t')
             ->innerJoin('t.taxonomy', 'x', 'WITH', 'x.name = :taxonomy')
             ->addSelect('x.count, t.name, t.slug')
@@ -152,7 +152,7 @@ class PostController extends Controller
     public function getPopularPosts($limit = 3, $offset = 0)
     {
         // Get the last posts:
-        $repo = $this->getDoctrine()->getRepository('KayueWordpressBundle:Post');
+        $repo = $this->getDoctrine()->getManager($this->container->getParameter( 'kayue_wordpress.connection' ))->getRepository('KayueWordpressBundle:Post');
         $posts = $repo->findBy(
             array(
                 'type' => 'post',
