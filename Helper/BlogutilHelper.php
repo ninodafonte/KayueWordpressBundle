@@ -51,7 +51,11 @@ class BlogutilHelper
             $temp['comments']       = $this->getValidComments($post);
             $temp['tags']           = $this->getTags($post);
             $temp['item']           = $post;
-            $temp['featured_image'] = $this->attachmentHelper->findThumbnail($post)->getGuid();
+            $temp['featured_image'] = str_replace(
+                $this->wpUploadUrl,
+                $this->staticUrl,
+                $this->attachmentHelper->findThumbnail($post)->getGuid()
+            );
 
             $preparePosts[] = $temp;
         }
