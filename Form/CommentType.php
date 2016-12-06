@@ -2,7 +2,12 @@
 
 namespace Kayue\WordpressBundle\Form;
 
+use Kayue\WordpressBundle\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -17,7 +22,7 @@ class CommentType extends AbstractType
     {
         $builder->add(
             'author',
-            'text',
+            TextType::class,
             [
                 'label' => 'Name',
                 'attr'  => ['class' => 'span4']
@@ -25,7 +30,7 @@ class CommentType extends AbstractType
         );
         $builder->add(
             'authorEmail',
-            'email',
+            EmailType::class,
             [
                 'label' => 'Email',
                 'attr'  => ['class' => 'span4']
@@ -33,7 +38,7 @@ class CommentType extends AbstractType
         );
         $builder->add(
             'content',
-            'textarea',
+            TextareaType::class,
             [
                 'label' => 'Your comment',
                 'attr'  => [
@@ -45,7 +50,7 @@ class CommentType extends AbstractType
         );
         $builder->add(
             'save',
-            'submit',
+            SubmitType::class,
             [
                 'label' => 'Submit comment',
                 'attr'  => ['class' => 'btn']
@@ -59,7 +64,7 @@ class CommentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class'      => 'Kayue\WordpressBundle\Entity\Comment',
+            'data_class'      => Comment::class,
             'csrf_protection' => false,
         ]);
     }
