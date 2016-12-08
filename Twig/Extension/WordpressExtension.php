@@ -3,6 +3,7 @@
 namespace Kayue\WordpressBundle\Twig\Extension;
 
 use Kayue\WordpressBundle\Doctrine\WordpressEntityManager;
+use Kayue\WordpressBundle\Entity\Comment;
 use Kayue\WordpressBundle\Entity\Post;
 use Kayue\WordpressBundle\Entity\Term;
 use Kayue\WordpressBundle\Entity\User;
@@ -82,6 +83,9 @@ class WordpressExtension extends \Twig_Extension
             new Twig_SimpleFunction('wp_get_attachment_url', [$this, 'getAttachmentUrl']),
             new Twig_SimpleFunction('wp_get_post_format', [$this, 'getPostFormatByPost']),
 
+            // Comments related functions
+            new Twig_SimpleFunction('wp_find_children_by_comment', [$this, 'findChildrenByComment']),
+
             // Terms related functions
             new Twig_SimpleFunction('wp_find_terms_by_post', [$this, 'findTermsByPost']),
             new Twig_SimpleFunction('wp_find_categories_by_post', [$this, 'findCategoriesByPost']),
@@ -148,6 +152,11 @@ class WordpressExtension extends \Twig_Extension
     public function findCommentsByPost(Post $post)
     {
         return $this->manager->getRepository('KayueWordpressBundle:Comment')->findApproved($post);
+    }
+
+    public function findChildrenByComment(Comment $comment)
+    {
+        return $this->manager->getRepository('KayueWordpressBundle:Comment')->findChildren($comment);
     }
 
     public function findAttachmentsByPost(Post $post)
