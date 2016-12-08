@@ -12,7 +12,7 @@ class CommentRepository extends AbstractRepository
             'post'     => $post,
             'approved' => 1,
             'type'     => '',
-        ]);
+        ], array('date' => 'ASC'));
     }
 
     public function getAlias()
