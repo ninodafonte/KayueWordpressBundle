@@ -30,7 +30,7 @@ services:
             - '@kayue_wordpress'
 
     kayue_wordpress.manager.configuration:
-        class: %kayue_wordpress.manager.configuration.class%
+        class: '%kayue_wordpress.manager.configuration.class%'
         arguments:
             - '%kayue_wordpress.site_url%'
             - '%kayue_wordpress.cookie_path%'
@@ -60,7 +60,7 @@ services:
             - {name: monolog.logger, channel: security}
 
     kayue_wordpress.security.logout.handler.cookie_clearing:
-        class: %kayue_wordpress.security.logout.handler.cookie_clearing.class%
+        class: '%kayue_wordpress.security.logout.handler.cookie_clearing.class%'
         parent: security.logout.handler.cookie_clearing
         arguments:
             - '@kayue_wordpress.manager.authentication_cookie'
@@ -86,10 +86,10 @@ services:
             - { name: twig.extension }
 
     kayue_wordpress.blog_util:
-        class: %kayue_wordpress.blog_util.class%
+        class: '%kayue_wordpress.blog_util.class%'
         arguments: ['@kayue_wordpress.helper.attachment', "%kayue_wordpress.wp_upload_url%", "%kayue_wordpress.static_url%"]
 
     kayue_wordpress.posts:
-        class: %kayue_wordpress.posts.class%
+        class: '%kayue_wordpress.posts.class%'
         calls:
           - [setContainer, ["@service_container"]]
