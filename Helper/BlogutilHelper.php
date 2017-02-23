@@ -127,7 +127,7 @@ class BlogutilHelper
 
     protected function processCaption($item)
     {
-        $parsed_item = '';
+        $htmlCodeWithCaption = '';
         // '<img class="post-img" src="//{{static_url}}/{{ post.featured_image.url }}" alt="">';
         preg_match_all('/(\[caption.*\])(.*)(\[.*\])/', $item, $parts);
         if (isset($parts[2][0])) {
@@ -136,8 +136,14 @@ class BlogutilHelper
                 $this->staticUrl,
                 $parts[2][0]
             );
+
+            // Extracting the parts of the <a href><img></a> Text
+            $imageAndLink = substr($parsed_item, 0, strpos($parsed_item, '</a>') + 4);
+            $caption = substr($parsed_item, strpos($parsed_item, '</a>') + 4);
+
+            $htmlCodeWithCaption = '<div class="caption-container">' . $imageAndLink . '<span class="caption-title">' . $caption . '</span>' . '</div>';
         }
 
-        return $parsed_item;
+        return $htmlCodeWithCaption;
     }
 }
